@@ -3,6 +3,6 @@ class ZiggeoConfig
 
   def initialize()
     @local = false 
-    @server_api_url = "https://srvapi.ziggeo.com"
+    @server_api_url = ENV['ZIGGEO_URL'].nil? ? "https://srvapi.ziggeo.com" : ENV['ZIGGEO_URL']
   end
 end
