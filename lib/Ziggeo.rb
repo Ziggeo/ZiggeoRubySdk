@@ -14,10 +14,10 @@ class Ziggeo
   
   attr_accessor :token, :private_key, :encryption_key, :config, :connect
   
-  def initialize(token, private_key, encryption_key = nil)
-    @token = token
-    @private_key = private_key
-    @encryption_key = encryption_key
+  def initialize(token = nil, private_key = nil, encryption_key = nil)
+    @token = token.nil? ? ENV['ZIGGEO_TOKEN'] : token
+    @private_key = private_key.nil? ? ENV['ZIGGEO_PRIVATE_KEY'] : private_key
+    @encryption_key = encryption_key.nil? ? ENV['ZIGGEO_ENCRYPTION_KEY'] : encryption_key
     @config = ZiggeoConfig.new()
     @connect = ZiggeoConnect.new(self)
     @videos = nil
