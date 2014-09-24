@@ -7,4 +7,6 @@ so if you want to improve on it, feel free to add a pull request.
 
 For Rails applications, you can simply install this repository as a gem.
 
+gem "Ziggeo", :git => "https://github.com/Ziggeo/ZiggeoRubySdk.git"
+
 Copyright (c) 2014 Ziggeo
