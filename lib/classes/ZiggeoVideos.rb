@@ -12,6 +12,14 @@ class ZiggeoVideos
     return @application.connect.getJSON('/videos/' + token_or_key + '')
   end
 
+  def download_video(token_or_key)
+    return @application.connect.get('/videos/' + token_or_key + '/video')
+  end
+
+  def download_image(token_or_key)
+    return @application.connect.get('/videos/' + token_or_key + '/image')
+  end
+
   def update(token_or_key, data = nil)
     return @application.connect.postJSON('/videos/' + token_or_key + '', data)
   end
