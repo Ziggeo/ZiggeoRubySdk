@@ -1,5 +1,7 @@
 require 'net/http'
 require 'json'
+require 'uri'
+require 'cgi'
 
 require_relative "classes/ZiggeoConfig"
 require_relative "classes/ZiggeoConnect"
@@ -8,22 +10,29 @@ require_relative "classes/ZiggeoStreams"
 require_relative "classes/ZiggeoAuthtokens"
 require_relative "classes/ZiggeoAuth"
 
-# When converting to a gem, include this: https://github.com/nicksieger/multipart-post
+# TODO: https://github.com/nicksieger/multipart-post
 
 class Ziggeo
-  
+
   attr_accessor :token, :private_key, :encryption_key, :config, :connect
-  
   def initialize(token = nil, private_key = nil, encryption_key = nil)
-    @token = token.nil? ? ENV['ZIGGEO_TOKEN'] : token
-    @private_key = private_key.nil? ? ENV['ZIGGEO_PRIVATE_KEY'] : private_key
-    @encryption_key = encryption_key.nil? ? ENV['ZIGGEO_ENCRYPTION_KEY'] : encryption_key
+    @token = token
+    @private_key = private_key
+    @encryption_key = encryption_key
     @config = ZiggeoConfig.new()
     @connect = ZiggeoConnect.new(self)
     @videos = nil
     @streams = nil
     @authtokens = nil
     @auth = nil
+    if (ENV["ZIGGEO_URL"] != nil)
+      uri = URI.parse(ENV["ZIGGEO_URL"])
+      @config.server_api_url = uri.scheme + "://" + uri.host + ":" + uri.port.to_s
+      @token = uri.user
+      @private_key = uri.password
+      query = CGI::parse(uri.query)
+      @encryption_key = query["encryption_key"]
+    end
   end
 
   def videos()
