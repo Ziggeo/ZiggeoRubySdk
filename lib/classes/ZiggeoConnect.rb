@@ -16,12 +16,12 @@ class ZiggeoConnect
     elsif (method == "POST")
       req = Net::HTTP::Post.new(url.to_s)
       if (data != nil)
-      req.req.set_form_data(data)
+      req.set_form_data(data)
       end
     elsif (method == "DELETE")
       req = Net::HTTP::Delete.new(url.to_s)
       if (data != nil)
-      req.req.set_form_data(data)
+      req.set_form_data(data)
       end
     end
     req.basic_auth(@application.token, @application.private_key)
