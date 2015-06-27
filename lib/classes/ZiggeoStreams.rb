@@ -28,4 +28,16 @@ class ZiggeoStreams
     return @application.connect.postJSON('/videos/' + video_token_or_key + '/streams', data, file)
   end
 
+  def attach_image(video_token_or_key, token_or_key, data = nil, file = nil)
+    return @application.connect.postJSON('/videos/' + video_token_or_key + '/streams/' + token_or_key + '/image', data, file)
+  end
+
+  def attach_video(video_token_or_key, token_or_key, data = nil, file = nil)
+    return @application.connect.postJSON('/videos/' + video_token_or_key + '/streams/' + token_or_key + '/video', data, file)
+  end
+
+  def bind(video_token_or_key, token_or_key)
+    return @application.connect.postJSON('/videos/' + video_token_or_key + '/streams/' + token_or_key + '/bind')
+  end
+
 end

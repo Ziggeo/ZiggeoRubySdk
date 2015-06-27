@@ -9,4 +9,6 @@ For Rails applications, you can simply install this repository as a gem.
 
 gem "Ziggeo"
 
-Copyright (c) 2014-2015 Ziggeo
+Copyright (c) 2015 Ziggeo
+
+Apache 2.0 License
