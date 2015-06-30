@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+require 'httparty'
 
 class ZiggeoConnect
   def initialize(application)
@@ -8,32 +9,11 @@ class ZiggeoConnect
 
   def request(method, path, data = nil, file = nil)
     url = URI.parse(@application.config.server_api_url + '/v1' + path)
-    if (method == "GET")
-      if (data != nil)
-        url.query = URI.encode_www_form(data)
-      end
-      req = Net::HTTP::Get.new(url.to_s)
-    elsif (method == "POST")
-      req = Net::HTTP::Post.new(url.to_s)
-      if (data != nil)
-      req.set_form_data(data)
-      end
-    elsif (method == "DELETE")
-      req = Net::HTTP::Delete.new(url.to_s)
-      if (data != nil)
-      req.set_form_data(data)
-      end
-    end
-    req.basic_auth(@application.token, @application.private_key)
-    http = Net::HTTP.new(url.host, url.port)
-    if (url.scheme == "https")
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    end
-    res = http.start() {|agent|
-      agent.request(req)
-    }
-    return res.body
+    auth = { username: @application.token, password: @application.private_key }
+    method.downcase!
+    allowed_methods = %w(get post delete)
+    return unless allowed_methods.include?(method)
+    HTTParty.send(method, url.to_s, body: data, basic_auth: auth).body
   end
 
   def requestJSON(method, path, data = nil, file = nil)
