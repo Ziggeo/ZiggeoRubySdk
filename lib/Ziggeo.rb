@@ -10,8 +10,6 @@ require_relative "classes/ZiggeoStreams"
 require_relative "classes/ZiggeoAuthtokens"
 require_relative "classes/ZiggeoAuth"
 
-# TODO: https://github.com/nicksieger/multipart-post
-
 class Ziggeo
 
   attr_accessor :token, :private_key, :encryption_key, :config, :connect
