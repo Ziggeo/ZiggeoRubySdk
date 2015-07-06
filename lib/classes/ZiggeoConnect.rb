@@ -17,7 +17,7 @@ class ZiggeoConnect
   end
 
   def requestJSON(method, path, data = nil, file = nil)
-    return JSON.parse self.request(method, path, data, file)
+    return JSON.parse(self.request(method, path, data, file))
   end
 
   def get(path, data = nil, file = nil)
