@@ -1,6 +1,7 @@
 require 'net/http'
 require 'json'
 require 'httparty'
+require 'httmultiparty'
 
 class ZiggeoConnect
   def initialize(application)
@@ -13,7 +14,13 @@ class ZiggeoConnect
     method.downcase!
     allowed_methods = %w(get post delete)
     return unless allowed_methods.include?(method)
-    HTTParty.send(method, url.to_s, body: data, basic_auth: auth).body
+    if (file.nil?)
+      HTTParty.send(method, url.to_s, body: data, basic_auth: auth).body
+    else
+      data = data.nil? ? {} : data;
+      data["file"] = File.new(file)
+      HTTMultiParty.send(method, url.to_s, body: data, basic_auth: auth).body
+    end    
   end
 
   def requestJSON(method, path, data = nil, file = nil)
