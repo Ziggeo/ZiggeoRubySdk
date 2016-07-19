@@ -15,7 +15,11 @@ class ZiggeoConnect
     allowed_methods = %w(get post delete)
     return unless allowed_methods.include?(method)
     if (file.nil?)
-      HTTParty.send(method, url.to_s, body: data, basic_auth: auth).body
+      if (method == "get")
+      	HTTParty.send(method, url.to_s, query: data, basic_auth: auth).body
+      else
+        HTTParty.send(method, url.to_s, body: data, basic_auth: auth).body
+      end
     else
       data = data.nil? ? {} : data;
       data["file"] = File.new(file)
