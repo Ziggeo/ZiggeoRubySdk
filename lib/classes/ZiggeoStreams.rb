@@ -20,6 +20,10 @@ class ZiggeoStreams
     return @application.connect.get('/videos/' + video_token_or_key + '/streams/' + token_or_key + '/image')
   end
 
+  def push_to_service(video_token_or_key, token_or_key, data = nil)
+    return @application.connect.postJSON('/videos/' + video_token_or_key + '/streams/' + token_or_key + '/push', data)
+  end
+
   def delete(video_token_or_key, token_or_key)
     return @application.connect.delete('/videos/' + video_token_or_key + '/streams/' + token_or_key + '')
   end

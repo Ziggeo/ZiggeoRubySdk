@@ -20,6 +20,10 @@ class ZiggeoVideos
     return @application.connect.get('/videos/' + token_or_key + '/image')
   end
 
+  def push_to_service(token_or_key, data = nil)
+    return @application.connect.postJSON('/videos/' + token_or_key + '/push', data)
+  end
+
   def update(token_or_key, data = nil)
     return @application.connect.postJSON('/videos/' + token_or_key + '', data)
   end

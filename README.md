@@ -1,6 +1,6 @@
-# Ziggeo Ruby Server SDK 1.14
+# Ziggeo Ruby Server SDK 1.15
 
-Ziggeo API (http://ziggeo.com) allows you to integrate video recording and playback with only
+Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the Ruby Server SDK repository.
 
 Pull requests welcome.
@@ -56,7 +56,7 @@ You can integrate the Server SDK as follows:
 ## Server-Side Methods
 
 ### Videos  
- 
+
 The videos resource allows you to access all single videos. Each video may contain more than one stream. 
  
 
@@ -106,6 +106,18 @@ ziggeo.videos().download_image(token_or_key)
  
 
 
+#### Push To Service 
+ 
+Push a video to a provided push service. 
+
+```ruby 
+ziggeo.videos().push_to_service(token_or_key, arguments = nil) 
+``` 
+ 
+Arguments 
+- pushservicetoken: *Push Services's token (from the Push Services configured for the app)* 
+
+
 #### Update 
  
 Update single video by token or key. 
@@ -151,7 +163,7 @@ Arguments
 
 
 ### Streams  
- 
+
 The streams resource allows you to directly access all streams associated with a single video. 
  
 
@@ -195,6 +207,18 @@ Download the image data associated with the stream
 ziggeo.streams().download_image(video_token_or_key, token_or_key) 
 ``` 
  
+
+
+#### Push To Service 
+ 
+Push a stream to a provided push service. 
+
+```ruby 
+ziggeo.streams().push_to_service(video_token_or_key, token_or_key, arguments = nil) 
+``` 
+ 
+Arguments 
+- pushservicetoken: *Push Services's token (from the Push Services configured for the app)* 
 
 
 #### Delete 
@@ -254,7 +278,7 @@ ziggeo.streams().bind(video_token_or_key, token_or_key, arguments = nil)
 
 
 ### Authtokens  
- 
+
 The auth token resource allows you to manage authorization settings for video objects. 
  
 
