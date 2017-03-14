@@ -9,7 +9,15 @@ class ZiggeoConnect
   end
 
   def request(method, path, data = nil, file = nil)
-    url = URI.parse(@application.config.server_api_url + '/v1' + path)
+    server_api_url = @application.config.server_api_url
+    regions = @application.config.regions
+    regions.each do |key, value|
+      if (@application.token.start_with?(key))
+        server_api_url = value
+      end
+    end
+
+    url = URI.parse(server_api_url + '/v1' + path)
     auth = { username: @application.token, password: @application.private_key }
     timeout_in_seconds = @application.config.request_timeout.to_i
 
