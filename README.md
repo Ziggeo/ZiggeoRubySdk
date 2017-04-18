@@ -1,4 +1,4 @@
-# Ziggeo Ruby Server SDK 1.17
+# Ziggeo Ruby Server SDK 1.19
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the Ruby Server SDK repository.
@@ -116,6 +116,18 @@ ziggeo.videos().push_to_service(token_or_key, arguments = nil)
  
 Arguments 
 - pushservicetoken: *Push Services's token (from the Push Services configured for the app)* 
+
+
+#### Apply Effect 
+ 
+Apply an effect profile to a video. 
+
+```ruby 
+ziggeo.videos().apply_effect(token_or_key, arguments = nil) 
+``` 
+ 
+Arguments 
+- effectprofiletoken: *Effect Profile token (from the Effect Profiles configured for the app)* 
 
 
 #### Update 
@@ -334,6 +346,122 @@ Arguments
 - usage_experitation_time: *Expiration time per session* 
 - session_limit: *Maximal number of sessions* 
 - grants: *Permissions this tokens grants* 
+
+
+### EffectProfiles  
+
+The effect profiles resource allows you to access and create effect profiles for your app. Each effect profile may contain one process or more. 
+ 
+
+#### Create 
+ 
+Create a new effect profile. 
+
+```ruby 
+ziggeo.effectProfiles().create(arguments = nil) 
+``` 
+ 
+Arguments 
+- key: *Effect profile key.* 
+- title: *Effect profile title.* 
+
+
+#### Index 
+ 
+Get list of effect profiles. 
+
+```ruby 
+ziggeo.effectProfiles().index(arguments = nil) 
+``` 
+ 
+Arguments 
+- limit: *Limit the number of returned effect profiles. Can be set up to 100.* 
+- skip: *Skip the first [n] entries.* 
+- reverse: *Reverse the order in which effect profiles are returned.* 
+
+
+#### Get 
+ 
+Get a single effect profile 
+
+```ruby 
+ziggeo.effectProfiles().get(token_or_key) 
+``` 
+ 
+
+
+#### Delete 
+ 
+Delete the effect profile 
+
+```ruby 
+ziggeo.effectProfiles().delete(token_or_key) 
+``` 
+ 
+
+
+### EffectProfileProcess  
+
+The process resource allows you to directly access all process associated with a single effect profile. 
+ 
+
+#### Index 
+ 
+Return all processes associated with a effect profile 
+
+```ruby 
+ziggeo.effectProfileProcess().index(effect_token_or_key, arguments = nil) 
+``` 
+ 
+Arguments 
+- states: *Filter streams by state* 
+
+
+#### Get 
+ 
+Get a single process 
+
+```ruby 
+ziggeo.effectProfileProcess().get(effect_token_or_key, token_or_key) 
+``` 
+ 
+
+
+#### Delete 
+ 
+Delete the process 
+
+```ruby 
+ziggeo.effectProfileProcess().delete(effect_token_or_key, token_or_key) 
+``` 
+ 
+
+
+#### Create Filter Process 
+ 
+Create a new filter effect process 
+
+```ruby 
+ziggeo.effectProfileProcess().create_filter_process(effect_token_or_key, arguments = nil) 
+``` 
+ 
+Arguments 
+- effect: *Effect to be applied in the process* 
+
+
+#### Create Watermark Process 
+ 
+Attaches an image to a new stream 
+
+```ruby 
+ziggeo.effectProfileProcess().create_watermark_process(effect_token_or_key, arguments = nil, file = nil) 
+``` 
+ 
+Arguments 
+- file: *Image file to be attached* 
+- vertical: *Specify the vertical position of your watermark (a value between 0.0 and 1.0)* 
+- horizontal: *Specify the horizontal position of your watermark (a value between 0.0 and 1.0)* 
+- scale: *Specify the image scale of your watermark (a value between 0.0 and 1.0)* 
 
 
 

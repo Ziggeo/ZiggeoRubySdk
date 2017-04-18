@@ -24,6 +24,10 @@ class ZiggeoVideos
     return @application.connect.postJSON('/videos/' + token_or_key + '/push', data)
   end
 
+  def apply_effect(token_or_key, data = nil)
+    return @application.connect.postJSON('/videos/' + token_or_key + '/effect', data)
+  end
+
   def update(token_or_key, data = nil)
     return @application.connect.postJSON('/videos/' + token_or_key + '', data)
   end
