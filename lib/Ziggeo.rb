@@ -9,6 +9,8 @@ require_relative "classes/ZiggeoVideos"
 require_relative "classes/ZiggeoStreams"
 require_relative "classes/ZiggeoEffectProfiles"
 require_relative "classes/ZiggeoEffectProfileProcess"
+require_relative "classes/ZiggeoMetaProfiles"
+require_relative "classes/ZiggeoMetaProfileProcess"
 require_relative "classes/ZiggeoAuthtokens"
 require_relative "classes/ZiggeoAuth"
 
@@ -25,6 +27,8 @@ class Ziggeo
     @streams = nil
     @effectProfiles = nil
     @effectProfileProcess = nil
+    @metaProfiles = nil
+    @metaProfileProcess = nil
     @authtokens = nil
     @auth = nil
     if (ENV["ZIGGEO_URL"] != nil)
@@ -51,18 +55,18 @@ class Ziggeo
     return @streams
   end
 
-  def effectProfiles()
-    if (@effectProfiles == nil)
-      @effectProfiles = ZiggeoEffectProfiles.new(self)
+  def metaProfiles()
+    if (@metaProfiles == nil)
+      @metaProfiles = ZiggeoMetaProfiles.new(self)
     end
-    return @effectProfiles
+    return @metaProfiles
   end
 
-  def effectProfileProcess()
-    if (@effectProfileProcess == nil)
-      @effectProfileProcess = ZiggeoEffectProfileProcess.new(self)
+  def metaProfileProcess()
+    if (@metaProfileProcess == nil)
+      @metaProfileProcess = ZiggeoMetaProfileProcess.new(self)
     end
-    return @effectProfileProcess
+    return @metaProfileProcess
   end
 
   def authtokens()

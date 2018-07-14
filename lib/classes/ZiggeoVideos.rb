@@ -20,12 +20,20 @@ class ZiggeoVideos
     return @application.connect.postJSON('/videos/get_bulk', data)
   end
 
+  def stats_bulk(data = nil)
+    return @application.connect.postJSON('/videos/stats_bulk', data)
+  end
+
   def download_video(token_or_key)
     return @application.connect.get('/videos/' + token_or_key + '/video')
   end
 
   def download_image(token_or_key)
     return @application.connect.get('/videos/' + token_or_key + '/image')
+  end
+
+  def get_stats(token_or_key)
+    return @application.connect.getJSON('/videos/' + token_or_key + '/stats')
   end
 
   def push_to_service(token_or_key, data = nil)

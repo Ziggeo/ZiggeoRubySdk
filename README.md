@@ -1,4 +1,4 @@
-# Ziggeo Ruby Server SDK 1.2
+# Ziggeo Ruby Server SDK 1.3
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the Ruby Server SDK repository.
@@ -114,6 +114,19 @@ Arguments
 - tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
 
 
+#### Stats Bulk 
+ 
+Get stats for multiple videos by tokens or keys. 
+
+```ruby 
+ziggeo.videos().stats_bulk(arguments = nil) 
+``` 
+ 
+Arguments 
+- tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
+- summarize: *Boolean. Set it to TRUE to get the stats summarized. Set it to FALSE to get the stats for each video in a separate array. Default: TRUE.* 
+
+
 #### Download Video 
  
 Download the video data file 
@@ -130,6 +143,16 @@ Download the image data file
 
 ```ruby 
 ziggeo.videos().download_image(token_or_key) 
+``` 
+ 
+
+
+#### Get Stats 
+ 
+Get the video's stats 
+
+```ruby 
+ziggeo.videos().get_stats(token_or_key) 
 ``` 
  
 
@@ -522,6 +545,125 @@ Arguments
 - vertical: *Specify the vertical position of your watermark (a value between 0.0 and 1.0)* 
 - horizontal: *Specify the horizontal position of your watermark (a value between 0.0 and 1.0)* 
 - scale: *Specify the image scale of your watermark (a value between 0.0 and 1.0)* 
+
+
+### MetaProfiles  
+
+The meta profiles resource allows you to access and create meta profiles for your app. Each meta profile may contain one process or more. 
+ 
+
+#### Create 
+ 
+Create a new meta profile. 
+
+```ruby 
+ziggeo.metaProfiles().create(arguments = nil) 
+``` 
+ 
+Arguments 
+- key: *Meta Profile profile key.* 
+- title: *Meta Profile profile title.* 
+
+
+#### Index 
+ 
+Get list of meta profiles. 
+
+```ruby 
+ziggeo.metaProfiles().index(arguments = nil) 
+``` 
+ 
+Arguments 
+- limit: *Limit the number of returned meta profiles. Can be set up to 100.* 
+- skip: *Skip the first [n] entries.* 
+- reverse: *Reverse the order in which meta profiles are returned.* 
+
+
+#### Get 
+ 
+Get a single meta profile 
+
+```ruby 
+ziggeo.metaProfiles().get(token_or_key) 
+``` 
+ 
+
+
+#### Delete 
+ 
+Delete the meta profile 
+
+```ruby 
+ziggeo.metaProfiles().delete(token_or_key) 
+``` 
+ 
+
+
+### MetaProfileProcess  
+
+The process resource allows you to directly access all process associated with a single meta profile. 
+ 
+
+#### Index 
+ 
+Return all processes associated with a meta profile 
+
+```ruby 
+ziggeo.metaProfileProcess().index(meta_token_or_key) 
+``` 
+ 
+
+
+#### Get 
+ 
+Get a single process 
+
+```ruby 
+ziggeo.metaProfileProcess().get(meta_token_or_key, token_or_key) 
+``` 
+ 
+
+
+#### Delete 
+ 
+Delete the process 
+
+```ruby 
+ziggeo.metaProfileProcess().delete(meta_token_or_key, token_or_key) 
+``` 
+ 
+
+
+#### Create Video Analysis Process 
+ 
+Create a new video analysis meta process 
+
+```ruby 
+ziggeo.metaProfileProcess().create_video_analysis_process(meta_token_or_key) 
+``` 
+ 
+
+
+#### Create Audio Transcription Process 
+ 
+Create a new audio transcription meta process 
+
+```ruby 
+ziggeo.metaProfileProcess().create_audio_transcription_process(meta_token_or_key) 
+``` 
+ 
+
+
+#### Create Nsfw Process 
+ 
+Create a new nsfw filter meta process 
+
+```ruby 
+ziggeo.metaProfileProcess().create_nsfw_process(meta_token_or_key, arguments = nil) 
+``` 
+ 
+Arguments 
+- nsfw_action: *One of the following three: approve, reject, nothing.* 
 
 
 ### Webhooks  
