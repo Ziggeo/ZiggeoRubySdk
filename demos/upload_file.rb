@@ -1,3 +1,3 @@
 require_relative "../lib/Ziggeo"
 
-Ziggeo.new('APP_TOKEN','PRIVATE_KEY', 'ENCRYPTION_KEY').videos.create(nil, 'file')
+Ziggeo.new(ARGV[0], ARGV[1], ARGV[2]).videos.create(nil, 'file')

@@ -1,4 +1,4 @@
-# Ziggeo Ruby Server SDK 1.3
+# Ziggeo Ruby Server SDK 1.5
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the Ruby Server SDK repository.
