@@ -1,4 +1,4 @@
-# Ziggeo Ruby Server SDK 1.5
+# Ziggeo Ruby Server SDK 1.7
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the Ruby Server SDK repository.
@@ -179,6 +179,18 @@ ziggeo.videos().apply_effect(token_or_key, arguments = nil)
  
 Arguments 
 - effectprofiletoken: *Effect Profile token (from the Effect Profiles configured for the app)* 
+
+
+#### Apply Meta 
+ 
+Apply a meta profile to a video. 
+
+```ruby 
+ziggeo.videos().apply_meta(token_or_key, arguments = nil) 
+``` 
+ 
+Arguments 
+- metaprofiletoken: *Meta Profile token (from the Meta Profiles configured for the app)* 
 
 
 #### Update 
