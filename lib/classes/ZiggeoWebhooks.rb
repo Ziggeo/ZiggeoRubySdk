@@ -5,11 +5,11 @@ class ZiggeoWebhooks
   end
 
   def create(data = nil)
-    return @application.connect.post('/api/hook', data)
+    return @application.connect.post('/v1/api/hook', data)
   end
 
   def delete(data = nil)
-    return @application.connect.post('/api/removehook', data)
+    return @application.connect.post('/v1/api/removehook', data)
   end
 
 end

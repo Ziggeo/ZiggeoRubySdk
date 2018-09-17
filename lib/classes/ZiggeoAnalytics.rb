@@ -5,7 +5,7 @@ class ZiggeoAnalytics
   end
 
   def get(data = nil)
-    return @application.connect.postJSON('/analytics/get', data)
+    return @application.connect.postJSON('/v1/analytics/get', data)
   end
 
 end

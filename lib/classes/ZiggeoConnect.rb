@@ -4,20 +4,13 @@ require 'httparty'
 require 'httmultiparty'
 
 class ZiggeoConnect
-  def initialize(application)
+  def initialize(application, baseuri)
     @application = application
+    @baseuri = baseuri
   end
 
   def request(method, path, data = nil, file = nil)
-    server_api_url = @application.config.server_api_url
-    regions = @application.config.regions
-    regions.each do |key, value|
-      if (@application.token.start_with?(key))
-        server_api_url = value
-      end
-    end
-
-    url = URI.parse(server_api_url + '/v1' + path)
+    url = URI.parse(@baseuri + path)
     auth = { username: @application.token, password: @application.private_key }
     timeout_in_seconds = @application.config.request_timeout.to_i
 
