@@ -8,6 +8,10 @@ class ZiggeoWebhooks
     return @application.connect.post('/v1/api/hook', data)
   end
 
+  def confirm(data = nil)
+    return @application.connect.post('/v1/api/confirmhook', data)
+  end
+
   def delete(data = nil)
     return @application.connect.post('/v1/api/removehook', data)
   end
