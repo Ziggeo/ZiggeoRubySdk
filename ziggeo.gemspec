@@ -11,6 +11,6 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "README.md"]
   s.require_paths = ["lib"]
   s.license     = 'Apache-2.0'
-  s.add_dependency 'httparty', '~> 0.13.5'
+  s.add_dependency 'httparty', '~> 0.13'
   s.add_dependency 'httmultiparty'
 end
