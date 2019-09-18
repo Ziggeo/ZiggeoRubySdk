@@ -1,4 +1,4 @@
-# Ziggeo Ruby Server SDK 2.16
+# Ziggeo Ruby Server SDK 2.17
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the Ruby Server SDK repository.
@@ -374,6 +374,20 @@ Arguments
 - file: *Video file to be attached* 
 
 
+#### Attach Subtitle 
+ 
+Attaches a video to a new stream 
+
+```ruby 
+ziggeo.streams().attach_subtitle(video_token_or_key, token_or_key, arguments = nil) 
+``` 
+ 
+Arguments 
+- lang: *Subtitle language* 
+- label: *Subtitle reference* 
+- data: *Actual subtitle* 
+
+
 #### Bind 
  
 Closes and submits the stream 
@@ -610,6 +624,21 @@ Attaches an image to a new stream
 
 ```ruby 
 ziggeo.effectProfileProcess().create_watermark_process(effect_token_or_key, arguments = nil, file = nil) 
+``` 
+ 
+Arguments 
+- file: *Image file to be attached* 
+- vertical_position: *Specify the vertical position of your watermark (a value between 0.0 and 1.0)* 
+- horizontal_position: *Specify the horizontal position of your watermark (a value between 0.0 and 1.0)* 
+- video_scale: *Specify the image scale of your watermark (a value between 0.0 and 1.0)* 
+
+
+#### Edit Watermark Process 
+ 
+Edits an existing watermark process. 
+
+```ruby 
+ziggeo.effectProfileProcess().edit_watermark_process(effect_token_or_key, token_or_key, arguments = nil, file = nil) 
 ``` 
  
 Arguments 

@@ -24,4 +24,8 @@ class ZiggeoEffectProfileProcess
     return @application.connect.postJSON('/v1/effects/' + effect_token_or_key + '/process/watermark', data, file)
   end
 
+  def edit_watermark_process(effect_token_or_key, token_or_key, data = nil, file = nil)
+    return @application.connect.postJSON('/v1/effects/' + effect_token_or_key + '/process/watermark/' + token_or_key + '', data, file)
+  end
+
 end
