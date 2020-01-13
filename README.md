@@ -208,6 +208,7 @@ Arguments
 - key: *Unique (optional) name of video* 
 - volatile: *Automatically removed this video if it remains empty* 
 - expiration_days: *After how many days will this video be deleted* 
+- expire_on: *On which date will this video be deleted. String in ISO 8601 format: YYYY-MM-DD* 
 
 
 #### Update Bulk 
@@ -225,6 +226,7 @@ Arguments
 - tags: *Video Tags* 
 - volatile: *Automatically removed this video if it remains empty* 
 - expiration_days: *After how many days will this video be deleted* 
+- expire_on: *On which date will this video be deleted. String in ISO 8601 format: YYYY-MM-DD* 
 
 
 #### Delete 
@@ -836,6 +838,6 @@ Arguments
 
 ## License
 
-Copyright (c) 2013-2019 Ziggeo
+Copyright (c) 2013-2020 Ziggeo
  
 Apache 2.0 License
