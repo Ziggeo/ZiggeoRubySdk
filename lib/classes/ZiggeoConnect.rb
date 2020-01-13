@@ -9,7 +9,7 @@ class ZiggeoConnect
     @baseuri = baseuri
   end
 
-  def request(method, path, data = nil, file = nil)
+  def singleRequest(method, path, data = nil, file = nil)
     url = URI.parse(@baseuri + path)
     auth = { username: @application.token, password: @application.private_key }
     timeout_in_seconds = @application.config.request_timeout.to_i
@@ -20,13 +20,13 @@ class ZiggeoConnect
     if (file.nil?)
       if (method == "get")
         begin
-          HTTParty.send(method, url.to_s, query: data, basic_auth: auth, timeout: timeout_in_seconds).body
+          HTTParty.send(method, url.to_s, query: data, basic_auth: auth, timeout: timeout_in_seconds)
         rescue Net::ReadTimeout => error
           self.timeout_error_message timeout_in_seconds, error
         end
       else
         begin
-          HTTParty.send(method, url.to_s, body: data, basic_auth: auth, timeout: timeout_in_seconds).body
+          HTTParty.send(method, url.to_s, body: data, basic_auth: auth, timeout: timeout_in_seconds)
         rescue Net::ReadTimeout => error
           self.timeout_error_message timeout_in_seconds, error
         end
@@ -37,11 +37,15 @@ class ZiggeoConnect
       timeout_in_seconds = ( ( File.size(file).to_f / 2**20 ).round(0) * @application.config.request_timeout_per_mb.to_i ).to_i;
 
       begin
-        HTTMultiParty.send(method, url.to_s, body: data, basic_auth: auth, timeout: timeout_in_seconds).body
+        HTTMultiParty.send(method, url.to_s, body: data, basic_auth: auth, timeout: timeout_in_seconds)
       rescue Net::ReadTimeout => error
         self.timeout_error_message timeout_in_seconds, error
       end
     end
+  end
+
+  def request(method, path, data = nil, file = nil)
+    return self.singleRequest(method, path, data, file).body
   end
 
   def requestJSON(method, path, data = nil, file = nil)
