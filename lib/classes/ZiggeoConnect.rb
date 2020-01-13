@@ -45,7 +45,13 @@ class ZiggeoConnect
   end
 
   def request(method, path, data = nil, file = nil)
-    return self.singleRequest(method, path, data, file).body
+    res = nil
+    5.times do
+      res = self.singleRequest(method, path, data, file)
+      break if res.response.code.to_i < 500
+    end
+
+    return res.body
   end
 
   def requestJSON(method, path, data = nil, file = nil)
