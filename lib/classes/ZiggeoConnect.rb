@@ -1,7 +1,6 @@
 require 'net/http'
 require 'json'
 require 'httparty'
-require 'httmultiparty'
 
 class ZiggeoConnect
   def initialize(application, baseuri)
@@ -34,10 +33,10 @@ class ZiggeoConnect
     else
       data = data.nil? ? {} : data;
       data["file"] = File.new(file)
-      timeout_in_seconds = ( ( File.size(file).to_f / 2**20 ).round(0) * @application.config.request_timeout_per_mb.to_i ).to_i;
+      timeout_in_seconds = ( ( File.size(file).to_f / 2**20 ).ceil * @application.config.request_timeout_per_mb.to_i ).to_i;
 
       begin
-        HTTMultiParty.send(method, url.to_s, body: data, basic_auth: auth, timeout: timeout_in_seconds)
+        HTTParty.send(method, url.to_s, body: data, basic_auth: auth, timeout: timeout_in_seconds)
       rescue Net::ReadTimeout => error
         self.timeout_error_message timeout_in_seconds, error
       end
