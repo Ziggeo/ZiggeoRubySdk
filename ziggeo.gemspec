@@ -2,7 +2,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "Ziggeo"
-  s.version     = "2.19"
+  s.version     = "2.18"
   s.authors     = ["Ziggeo, Inc"]
   s.email       = ["support@ziggeo.com"]
   s.homepage    = "https://ziggeo.com"
@@ -11,5 +11,6 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "README.md"]
   s.require_paths = ["lib"]
   s.license     = 'Apache-2.0'
-  s.add_dependency 'httparty', '~> 0.16'
+  s.add_dependency 'httparty', '~> 0.13'
+  s.add_dependency 'httmultiparty'
 end
