@@ -16,25 +16,18 @@ class ZiggeoConnect
     method.downcase!
     allowed_methods = %w(get post delete)
     return unless allowed_methods.include?(method)
-    if (file.nil?)
-      if (method == "get")
-        begin
-          HTTParty.send(method, url.to_s, query: data, basic_auth: auth, timeout: timeout_in_seconds)
-        rescue Net::ReadTimeout => error
-          self.timeout_error_message timeout_in_seconds, error
-        end
-      else
-        begin
-          HTTParty.send(method, url.to_s, body: data, basic_auth: auth, timeout: timeout_in_seconds)
-        rescue Net::ReadTimeout => error
-          self.timeout_error_message timeout_in_seconds, error
-        end
-      end
-    else
-      data = data.nil? ? {} : data;
+    unless (file.nil?)
+      data = data || {}
       data["file"] = File.new(file)
       timeout_in_seconds = ( ( File.size(file).to_f / 2**20 ).ceil * @application.config.request_timeout_per_mb.to_i ).to_i;
-
+    end
+    if (method == "get")
+      begin
+        HTTParty.send(method, url.to_s, query: data, basic_auth: auth, timeout: timeout_in_seconds)
+      rescue Net::ReadTimeout => error
+        self.timeout_error_message timeout_in_seconds, error
+      end
+    else
       begin
         HTTParty.send(method, url.to_s, body: data, basic_auth: auth, timeout: timeout_in_seconds)
       rescue Net::ReadTimeout => error
