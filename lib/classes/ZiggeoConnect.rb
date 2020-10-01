@@ -45,12 +45,13 @@ class ZiggeoConnect
 
   def request(method, path, data = nil, file = nil)
     res = nil
-    5.times do
+    @application.config.resilience_factor.times do
       res = self.singleRequest(method, path, data, file)
-      break if res.response.code.to_i < 500
+      if res.response.code.to_i >= 200 && res.response.code.to_i < 500
+        return res.body
+      end
     end
-
-    return res.body
+    return @application.config.resilience_on_fail.to_json
   end
 
   def requestJSON(method, path, data = nil, file = nil)
