@@ -75,6 +75,33 @@ class ZiggeoConnect
     return self.requestJSON("DELETE", path, data, file)
   end
 
+  def uploadFile(url, file, data)
+    res = nil
+    data["file"] = File.new(file)
+    timeout_in_seconds = ( ( File.size(file).to_f / 2**20 ).ceil * @application.config.request_timeout_per_mb.to_i ).to_i;
+    begin
+      @application.config.resilience_factor.times do
+        res = HTTParty.send("post", url.to_s, body: data, timeout: timeout_in_seconds)
+        if res.response.code.to_i >= 200 && res.response.code.to_i < 300
+          return
+        end
+      end
+      raise Exception.new res.response
+    rescue Net::ReadTimeout => error
+      self.timeout_error_message timeout_in_seconds, error
+    end
+  end
+
+  def postUploadJSON(path, scope, data = nil, file = nil, type_key = nil)
+    data = data || {}
+    if type_key && (file.is_a? String)
+      data[type_key] = File.extname(file)
+    end
+    result = self.postJSON(path, data)
+    self.uploadFile(result["url_data"]["url"], file, result["url_data"]["fields"])
+    return result[scope]
+  end
+
   protected
 
   def timeout_error_message( timeout_in_seconds, error )
