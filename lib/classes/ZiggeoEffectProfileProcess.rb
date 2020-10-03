@@ -21,11 +21,23 @@ class ZiggeoEffectProfileProcess
   end
 
   def create_watermark_process(effect_token_or_key, data = nil, file = nil)
-    return @application.connect.postJSON('/v1/effects/' + effect_token_or_key + '/process/watermark', data, file)
+    unless file.nil?
+      result = @application.connect.postUploadJSON('/v1/effects/' + effect_token_or_key + '/process/watermark-upload-url', 'effect_process', data, file)
+      result = @application.connect.postJSON('/v1/effects/' + effect_token_or_key + '/process/' + result["token"] + '/confirm-watermark');
+      return result
+    else
+      return @application.connect.postJSON('/v1/effects/' + effect_token_or_key + '/process/watermark', data, file)
+    end
   end
 
   def edit_watermark_process(effect_token_or_key, token_or_key, data = nil, file = nil)
-    return @application.connect.postJSON('/v1/effects/' + effect_token_or_key + '/process/watermark/' + token_or_key + '', data, file)
+    unless file.nil?
+      result = @application.connect.postUploadJSON('/v1/effects/' + effect_token_or_key + '/process/' + token_or_key + '/watermark-upload-url', 'effect_process', data, file)
+      result = @application.connect.postJSON('/v1/effects/' + effect_token_or_key + '/process/' + token_or_key + '/confirm-watermark');
+      return result
+    else
+      return @application.connect.postJSON('/v1/effects/' + effect_token_or_key + '/process/watermark/' + token_or_key + '', data, file)
+    end
   end
 
 end

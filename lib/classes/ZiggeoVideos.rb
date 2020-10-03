@@ -61,7 +61,13 @@ class ZiggeoVideos
   end
 
   def create(data = nil, file = nil)
-    return @application.connect.postJSON('/v1/videos/', data, file)
+    unless file.nil?
+      result = @application.connect.postUploadJSON('/v1/videos-upload-url', 'video', data, file, 'video_type')
+      result["default_stream"] = @application.connect.postJSON('/v1/videos/' + result["token"] + '/streams/' + result["default_stream"]["token"] + '/confirm-video');
+      return result
+    else
+      return @application.connect.postJSON('/v1/videos/', data, file)
+    end
   end
 
   def analytics(token_or_key, data = nil)

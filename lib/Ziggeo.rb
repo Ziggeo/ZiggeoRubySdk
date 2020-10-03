@@ -19,7 +19,7 @@ require_relative "classes/ZiggeoAnalytics"
 
 class Ziggeo
 
-    attr_accessor :token, :private_key, :encryption_key, :config, :connect, :api_connect
+    attr_accessor :token, :private_key, :encryption_key, :config, :connect, :api_connect, :cdn_connect
 
     def initialize(token = nil, private_key = nil, encryption_key = nil)
         @token = token
@@ -42,6 +42,14 @@ class Ziggeo
             end
         end
         @api_connect = ZiggeoConnect.new(self, api_url)
+        cdn_url = @config.cdn_url
+        cdn_regions = @config.cdn_regions
+        cdn_regions.each do |key, value|
+            if (@token.start_with?(key))
+                cdn_url = value
+            end
+        end
+        @cdn_connect = ZiggeoConnect.new(self, cdn_url)
         @auth = nil
         @videos = nil
         @streams = nil
@@ -64,70 +72,47 @@ class Ziggeo
     end
 
     def auth()
-        if (@auth == nil)
-            @auth = ZiggeoAuth.new(self)
-        end
-        return @auth    end
+        return @auth || ZiggeoAuth.new(self)
+    end
 
     def videos()
-        if (@videos == nil)
-            @videos = ZiggeoVideos.new(self)
-        end
-        return @videos    end
+        return @videos || ZiggeoVideos.new(self)
+    end
 
     def streams()
-        if (@streams == nil)
-            @streams = ZiggeoStreams.new(self)
-        end
-        return @streams    end
+        return @streams || ZiggeoStreams.new(self)
+    end
 
     def authtokens()
-        if (@authtokens == nil)
-            @authtokens = ZiggeoAuthtokens.new(self)
-        end
-        return @authtokens    end
+        return @authtokens || ZiggeoAuthtokens.new(self)
+    end
 
     def application()
-        if (@application == nil)
-            @application = ZiggeoApplication.new(self)
-        end
-        return @application    end
+        return @application || ZiggeoApplication.new(self)
+    end
 
     def effectProfiles()
-        if (@effectProfiles == nil)
-            @effectProfiles = ZiggeoEffectProfiles.new(self)
-        end
-        return @effectProfiles    end
+        return @effectProfiles || ZiggeoEffectProfiles.new(self)
+    end
 
     def effectProfileProcess()
-        if (@effectProfileProcess == nil)
-            @effectProfileProcess = ZiggeoEffectProfileProcess.new(self)
-        end
-        return @effectProfileProcess    end
+        return @effectProfileProcess || ZiggeoEffectProfileProcess.new(self)
+    end
 
     def metaProfiles()
-        if (@metaProfiles == nil)
-            @metaProfiles = ZiggeoMetaProfiles.new(self)
-        end
-        return @metaProfiles    end
+        return @metaProfiles || ZiggeoMetaProfiles.new(self)
+    end
 
     def metaProfileProcess()
-        if (@metaProfileProcess == nil)
-            @metaProfileProcess = ZiggeoMetaProfileProcess.new(self)
-        end
-        return @metaProfileProcess    end
+        return @metaProfileProcess || ZiggeoMetaProfileProcess.new(self)
+    end
 
     def webhooks()
-        if (@webhooks == nil)
-            @webhooks = ZiggeoWebhooks.new(self)
-        end
-        return @webhooks    end
+        return @webhooks || ZiggeoWebhooks.new(self)
+    end
 
     def analytics()
-        if (@analytics == nil)
-            @analytics = ZiggeoAnalytics.new(self)
-        end
-        return @analytics    end
-
+        return @analytics || ZiggeoAnalytics.new(self)
+    end
 
 end
