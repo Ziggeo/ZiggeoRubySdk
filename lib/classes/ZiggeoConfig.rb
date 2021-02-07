@@ -5,10 +5,10 @@ class ZiggeoConfig
   def initialize()
     @request_timeout = 30 # seconds
     @request_timeout_per_mb = 20 # seconds per MB of uploaded file
-    @server_api_url = "https://srvapi.ziggeo.com"
+    @server_api_url = "https://srv-api.ziggeo.com"
     @api_url = "https://api-us-east-1.ziggeo.com"
     @cdn_url = "https://video-cdn.ziggeo.com"
-    @regions = {"r1" => "https://srvapi-eu-west-1.ziggeo.com", }
+    @regions = {"r1" => "https://srv-api-eu-west-1.ziggeo.com", }
     @api_regions = {"r1" => "https://api-eu-west-1.ziggeo.com", }
     @cdn_regions = {"r1" => "https://video-cdn-eu-west-1.ziggeo.com", }
     @resilience_factor = 5

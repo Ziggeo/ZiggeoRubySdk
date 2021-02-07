@@ -1,6 +1,6 @@
 # Ziggeo's Ruby Server SDK
 
-latest version: **2.21**
+latest version: **2.24**
 
 ## Index
 
@@ -76,6 +76,7 @@ latest version: **2.21**
         4. [Meta Profile Process Create Video Analysis Process](#method-meta-profile-process-create-video-analysis-process)
         5. [Meta Profile Process Create Audio Transcription Process](#method-meta-profile-process-create-audio-transcription-process)
         6. [Meta Profile Process Create Nsfw Process](#method-meta-profile-process-create-nsfw-process)
+        7. [Meta Profile Process Create Profanity Process](#method-meta-profile-process-create-profanity-process)
     11. [Methods for Webhooks](#method-webhooks)
         1. [Webhooks Create](#method-webhooks-create)
         2. [Webhooks Confirm](#method-webhooks-confirm)
@@ -172,16 +173,16 @@ Config is optional and if not specified (recommended), the Config file will be u
 
 Currently available methods are branched off within different categories:
 
-1.Videos
-1.Streams
-1.Authtokens
-1.Application
-1.Effect Profiles
-1.Effect Profile Process
-1.Meta Profiles
-1.Meta Profile Process
-1.Webhooks
-1.Analytics
+1. Videos
+2. Streams
+3. Authtokens
+4. Application
+5. Effect Profiles
+6. Effect Profile Process
+7. Meta Profiles
+8. Meta Profile Process
+9. Webhooks
+10. Analytics
 
 Each of this sections has their own actions and they are explained bellow
 
@@ -192,7 +193,7 @@ Each of this sections has their own actions and they are explained bellow
 
 The videos resource allows you to access all single videos. Each video may contain more than one stream.
 
-#### Index<a name="method-meta-profile-process-index"></a>
+#### Index<a name="method-videos-index"></a>
 
 Query an array of videos (will return at most 50 videos by default). Newest videos come first.
 
@@ -219,7 +220,7 @@ ziggeo.videos().count(arguments = nil)
 - states: *Filter videos by state*
 - tags: *Filter the search result to certain tags, encoded as a comma-separated string*
 
-#### Get<a name="method-analytics-get"></a>
+#### Get<a name="method-videos-get"></a>
 
 Get a single video by token or key.
 
@@ -250,7 +251,7 @@ ziggeo.videos().stats_bulk(arguments = nil)
 - tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).*
 - summarize: *Boolean. Set it to TRUE to get the stats summarized. Set it to FALSE to get the stats for each video in a separate array. Default: TRUE.*
 
-#### Download Video<a name="method-streams-download-video"></a>
+#### Download Video<a name="method-videos-download-video"></a>
 
 Download the video data file
 
@@ -258,7 +259,7 @@ Download the video data file
 ziggeo.videos().download_video(token_or_key)
 ```
 
-#### Download Image<a name="method-streams-download-image"></a>
+#### Download Image<a name="method-videos-download-image"></a>
 
 Download the image data file
 
@@ -266,7 +267,7 @@ Download the image data file
 ziggeo.videos().download_image(token_or_key)
 ```
 
-#### Get Stats<a name="method-application-get-stats"></a>
+#### Get Stats<a name="method-videos-get-stats"></a>
 
 Get the video's stats
 
@@ -274,7 +275,7 @@ Get the video's stats
 ziggeo.videos().get_stats(token_or_key)
 ```
 
-#### Push To Service<a name="method-streams-push-to-service"></a>
+#### Push To Service<a name="method-videos-push-to-service"></a>
 
 Push a video to a provided push service.
 
@@ -307,7 +308,7 @@ ziggeo.videos().apply_meta(token_or_key, arguments = nil)
  Arguments
 - metaprofiletoken: *Meta Profile token (from the Meta Profiles configured for the app)*
 
-#### Update<a name="method-effect-profiles-update"></a>
+#### Update<a name="method-videos-update"></a>
 
 Update single video by token or key.
 
@@ -341,7 +342,7 @@ ziggeo.videos().update_bulk(arguments = nil)
 - expiration_days: *After how many days will this video be deleted*
 - expire_on: *On which date will this video be deleted. String in ISO 8601 format: YYYY-MM-DD*
 
-#### Delete<a name="method-webhooks-delete"></a>
+#### Delete<a name="method-videos-delete"></a>
 
 Delete a single video by token or key.
 
@@ -349,7 +350,7 @@ Delete a single video by token or key.
 ziggeo.videos().delete(token_or_key)
 ```
 
-#### Create<a name="method-webhooks-create"></a>
+#### Create<a name="method-videos-create"></a>
 
 Create a new video.
 
@@ -364,6 +365,9 @@ ziggeo.videos().create(arguments = nil, file = nil)
 - tags: *Video Tags*
 - key: *Unique (optional) name of video*
 - volatile: *Automatically removed this video if it remains empty*
+- effect_profile: *Set the effect profile that you want to have applied to your video.*
+- meta_profile: *Set the meta profile that you want to have applied to your video once created.*
+- video_profile: *Set the video profile that you want to have applied to your video as you create it.*
 
 #### Analytics<a name="method-videos-analytics"></a>
 
@@ -384,7 +388,7 @@ ziggeo.videos().analytics(token_or_key, arguments = nil)
 
 The streams resource allows you to directly access all streams associated with a single video.
 
-#### Index<a name="method-meta-profile-process-index"></a>
+#### Index<a name="method-streams-index"></a>
 
 Return all streams associated with a video
 
@@ -395,7 +399,7 @@ ziggeo.streams().index(video_token_or_key, arguments = nil)
  Arguments
 - states: *Filter streams by state*
 
-#### Get<a name="method-analytics-get"></a>
+#### Get<a name="method-streams-get"></a>
 
 Get a single stream
 
@@ -430,7 +434,7 @@ ziggeo.streams().push_to_service(video_token_or_key, token_or_key, arguments = n
  Arguments
 - pushservicetoken: *Push Services's token (from the Push Services configured for the app)*
 
-#### Delete<a name="method-webhooks-delete"></a>
+#### Delete<a name="method-streams-delete"></a>
 
 Delete the stream
 
@@ -438,7 +442,7 @@ Delete the stream
 ziggeo.streams().delete(video_token_or_key, token_or_key)
 ```
 
-#### Create<a name="method-webhooks-create"></a>
+#### Create<a name="method-streams-create"></a>
 
 Create a new stream
 
@@ -499,7 +503,7 @@ ziggeo.streams().bind(video_token_or_key, token_or_key, arguments = nil)
 
 The auth token resource allows you to manage authorization settings for video objects.
 
-#### Get<a name="method-analytics-get"></a>
+#### Get<a name="method-authtokens-get"></a>
 
 Get a single auth token by token.
 
@@ -507,7 +511,7 @@ Get a single auth token by token.
 ziggeo.authtokens().get(token)
 ```
 
-#### Update<a name="method-effect-profiles-update"></a>
+#### Update<a name="method-authtokens-update"></a>
 
 Update single auth token by token.
 
@@ -523,7 +527,7 @@ ziggeo.authtokens().update(token_or_key, arguments = nil)
 - session_limit: *Maximal number of sessions*
 - grants: *Permissions this tokens grants*
 
-#### Delete<a name="method-webhooks-delete"></a>
+#### Delete<a name="method-authtokens-delete"></a>
 
 Delete a single auth token by token.
 
@@ -531,7 +535,7 @@ Delete a single auth token by token.
 ziggeo.authtokens().delete(token_or_key)
 ```
 
-#### Create<a name="method-webhooks-create"></a>
+#### Create<a name="method-authtokens-create"></a>
 
 Create a new auth token.
 
@@ -552,7 +556,7 @@ ziggeo.authtokens().create(arguments = nil)
 
 The application token resource allows you to manage your application.
 
-#### Get<a name="method-analytics-get"></a>
+#### Get<a name="method-application-get"></a>
 
 Read application.
 
@@ -560,7 +564,7 @@ Read application.
 ziggeo.application().get()
 ```
 
-#### Update<a name="method-effect-profiles-update"></a>
+#### Update<a name="method-application-update"></a>
 
 Update application.
 
@@ -595,7 +599,7 @@ ziggeo.application().get_stats(arguments = nil)
 
 The effect profiles resource allows you to access and create effect profiles for your app. Each effect profile may contain one process or more.
 
-#### Create<a name="method-webhooks-create"></a>
+#### Create<a name="method-effect-profiles-create"></a>
 
 Create a new effect profile.
 
@@ -608,7 +612,7 @@ ziggeo.effectProfiles().create(arguments = nil)
 - title: *Effect profile title.*
 - default_effect: *Boolean. If TRUE, sets an effect profile as default. If FALSE, removes the default status for the given effect*
 
-#### Index<a name="method-meta-profile-process-index"></a>
+#### Index<a name="method-effect-profiles-index"></a>
 
 Get list of effect profiles.
 
@@ -621,7 +625,7 @@ ziggeo.effectProfiles().index(arguments = nil)
 - skip: *Skip the first [n] entries.*
 - reverse: *Reverse the order in which effect profiles are returned.*
 
-#### Get<a name="method-analytics-get"></a>
+#### Get<a name="method-effect-profiles-get"></a>
 
 Get a single effect profile
 
@@ -629,7 +633,7 @@ Get a single effect profile
 ziggeo.effectProfiles().get(token_or_key)
 ```
 
-#### Delete<a name="method-webhooks-delete"></a>
+#### Delete<a name="method-effect-profiles-delete"></a>
 
 Delete the effect profile
 
@@ -653,7 +657,7 @@ ziggeo.effectProfiles().update(token_or_key, arguments = nil)
 
 The process resource allows you to directly access all process associated with a single effect profile.
 
-#### Index<a name="method-meta-profile-process-index"></a>
+#### Index<a name="method-effect-profile-process-index"></a>
 
 Return all processes associated with a effect profile
 
@@ -664,7 +668,7 @@ ziggeo.effectProfileProcess().index(effect_token_or_key, arguments = nil)
  Arguments
 - states: *Filter streams by state*
 
-#### Get<a name="method-analytics-get"></a>
+#### Get<a name="method-effect-profile-process-get"></a>
 
 Get a single process
 
@@ -672,7 +676,7 @@ Get a single process
 ziggeo.effectProfileProcess().get(effect_token_or_key, token_or_key)
 ```
 
-#### Delete<a name="method-webhooks-delete"></a>
+#### Delete<a name="method-effect-profile-process-delete"></a>
 
 Delete the process
 
@@ -724,7 +728,7 @@ ziggeo.effectProfileProcess().edit_watermark_process(effect_token_or_key, token_
 
 The meta profiles resource allows you to access and create meta profiles for your app. Each meta profile may contain one process or more.
 
-#### Create<a name="method-webhooks-create"></a>
+#### Create<a name="method-meta-profiles-create"></a>
 
 Create a new meta profile.
 
@@ -736,7 +740,7 @@ ziggeo.metaProfiles().create(arguments = nil)
 - key: *Meta Profile profile key.*
 - title: *Meta Profile profile title.*
 
-#### Index<a name="method-meta-profile-process-index"></a>
+#### Index<a name="method-meta-profiles-index"></a>
 
 Get list of meta profiles.
 
@@ -749,7 +753,7 @@ ziggeo.metaProfiles().index(arguments = nil)
 - skip: *Skip the first [n] entries.*
 - reverse: *Reverse the order in which meta profiles are returned.*
 
-#### Get<a name="method-analytics-get"></a>
+#### Get<a name="method-meta-profiles-get"></a>
 
 Get a single meta profile
 
@@ -757,7 +761,7 @@ Get a single meta profile
 ziggeo.metaProfiles().get(token_or_key)
 ```
 
-#### Delete<a name="method-webhooks-delete"></a>
+#### Delete<a name="method-meta-profiles-delete"></a>
 
 Delete the meta profile
 
@@ -778,7 +782,7 @@ Return all processes associated with a meta profile
 ziggeo.metaProfileProcess().index(meta_token_or_key)
 ```
 
-#### Get<a name="method-analytics-get"></a>
+#### Get<a name="method-meta-profile-process-get"></a>
 
 Get a single process
 
@@ -786,7 +790,7 @@ Get a single process
 ziggeo.metaProfileProcess().get(meta_token_or_key, token_or_key)
 ```
 
-#### Delete<a name="method-webhooks-delete"></a>
+#### Delete<a name="method-meta-profile-process-delete"></a>
 
 Delete the process
 
@@ -820,6 +824,17 @@ ziggeo.metaProfileProcess().create_nsfw_process(meta_token_or_key, arguments = n
 
  Arguments
 - nsfw_action: *One of the following three: approve, reject, nothing.*
+
+#### Create Profanity Process<a name="method-meta-profile-process-create-profanity-process"></a>
+
+Create a new profanity filter meta process
+
+```ruby
+ziggeo.metaProfileProcess().create_profanity_process(meta_token_or_key, arguments = nil)
+```
+
+ Arguments
+- profanity_action: *One of the following three: approve, reject, nothing.*
 
 ### Webhooks<a name="method-webhooks"></a>
 
@@ -887,6 +902,6 @@ ziggeo.analytics().get(arguments = nil)
 
 ## License <a name="license"></a>
 
-Copyright (c) 2013-2020 Ziggeo
+Copyright (c) 2013-2021 Ziggeo
  
 Apache 2.0 License

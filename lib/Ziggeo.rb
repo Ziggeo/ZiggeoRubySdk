@@ -72,47 +72,58 @@ class Ziggeo
     end
 
     def auth()
-        return @auth || ZiggeoAuth.new(self)
+        @auth = @auth || ZiggeoAuth.new(self)
+        return @auth
     end
 
     def videos()
-        return @videos || ZiggeoVideos.new(self)
+        @videos = @videos || ZiggeoVideos.new(self)
+        return @videos
     end
 
     def streams()
-        return @streams || ZiggeoStreams.new(self)
+        @streams = @streams || ZiggeoStreams.new(self)
+        return @streams
     end
 
     def authtokens()
-        return @authtokens || ZiggeoAuthtokens.new(self)
+        @authtokens = @authtokens || ZiggeoAuthtokens.new(self)
+        return @authtokens
     end
 
     def application()
-        return @application || ZiggeoApplication.new(self)
+        @application = @application || ZiggeoApplication.new(self)
+        return @application
     end
 
     def effectProfiles()
-        return @effectProfiles || ZiggeoEffectProfiles.new(self)
+        @effectProfiles = @effectProfiles || ZiggeoEffectProfiles.new(self)
+        return @effectProfiles
     end
 
     def effectProfileProcess()
-        return @effectProfileProcess || ZiggeoEffectProfileProcess.new(self)
+        @effectProfileProcess = @effectProfileProcess || ZiggeoEffectProfileProcess.new(self)
+        return @effectProfileProcess
     end
 
     def metaProfiles()
-        return @metaProfiles || ZiggeoMetaProfiles.new(self)
+        @metaProfiles = @metaProfiles || ZiggeoMetaProfiles.new(self)
+        return @metaProfiles
     end
 
     def metaProfileProcess()
-        return @metaProfileProcess || ZiggeoMetaProfileProcess.new(self)
+        @metaProfileProcess = @metaProfileProcess || ZiggeoMetaProfileProcess.new(self)
+        return @metaProfileProcess
     end
 
     def webhooks()
-        return @webhooks || ZiggeoWebhooks.new(self)
+        @webhooks = @webhooks || ZiggeoWebhooks.new(self)
+        return @webhooks
     end
 
     def analytics()
-        return @analytics || ZiggeoAnalytics.new(self)
+        @analytics = @analytics || ZiggeoAnalytics.new(self)
+        return @analytics
     end
 
 end

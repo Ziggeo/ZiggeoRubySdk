@@ -2,7 +2,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "Ziggeo"
-  s.version     = "2.21"
+  s.version     = "2.24"
   s.authors     = ["Ziggeo, Inc"]
   s.email       = ["support@ziggeo.com"]
   s.homepage    = "https://ziggeo.com"
