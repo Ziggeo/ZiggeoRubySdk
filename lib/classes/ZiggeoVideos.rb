@@ -25,11 +25,11 @@ class ZiggeoVideos
   end
 
   def download_video(token_or_key)
-    return @application.connect.get('/v1/videos/' + token_or_key + '/video')
+    return @application.cdn_connect.get('/v1/videos/' + token_or_key + '/video')
   end
 
   def download_image(token_or_key)
-    return @application.connect.get('/v1/videos/' + token_or_key + '/image')
+    return @application.cdn_connect.get('/v1/videos/' + token_or_key + '/image')
   end
 
   def get_stats(token_or_key)

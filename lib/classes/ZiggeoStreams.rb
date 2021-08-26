@@ -13,11 +13,11 @@ class ZiggeoStreams
   end
 
   def download_video(video_token_or_key, token_or_key)
-    return @application.connect.get('/v1/videos/' + video_token_or_key + '/streams/' + token_or_key + '/video')
+    return @application.cdn_connect.get('/v1/videos/' + video_token_or_key + '/streams/' + token_or_key + '/video')
   end
 
   def download_image(video_token_or_key, token_or_key)
-    return @application.connect.get('/v1/videos/' + video_token_or_key + '/streams/' + token_or_key + '/image')
+    return @application.cdn_connect.get('/v1/videos/' + video_token_or_key + '/streams/' + token_or_key + '/image')
   end
 
   def push_to_service(video_token_or_key, token_or_key, data = nil)

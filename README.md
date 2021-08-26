@@ -1,6 +1,6 @@
 # Ziggeo's Ruby Server SDK
 
-latest version: **2.24**
+latest version: **2.26**
 
 ## Index
 
