@@ -8,6 +8,8 @@ require_relative "classes/ZiggeoConnect"
 require_relative "classes/ZiggeoAuth"
 require_relative "classes/ZiggeoVideos"
 require_relative "classes/ZiggeoStreams"
+require_relative "classes/ZiggeoAudios"
+require_relative "classes/ZiggeoAudio_streams"
 require_relative "classes/ZiggeoAuthtokens"
 require_relative "classes/ZiggeoApplication"
 require_relative "classes/ZiggeoEffectProfiles"
@@ -53,6 +55,8 @@ class Ziggeo
         @auth = nil
         @videos = nil
         @streams = nil
+        @audios = nil
+        @audio_streams = nil
         @authtokens = nil
         @application = nil
         @effectProfiles = nil
@@ -84,6 +88,16 @@ class Ziggeo
     def streams()
         @streams = @streams || ZiggeoStreams.new(self)
         return @streams
+    end
+
+    def audios()
+        @audios = @audios || ZiggeoAudios.new(self)
+        return @audios
+    end
+
+    def audio_streams()
+        @audio_streams = @audio_streams || ZiggeoAudio_streams.new(self)
+        return @audio_streams
     end
 
     def authtokens()

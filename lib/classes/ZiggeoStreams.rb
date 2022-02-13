@@ -62,8 +62,4 @@ class ZiggeoStreams
     return @application.connect.postJSON('/v1/videos/' + video_token_or_key + '/streams/' + token_or_key + '/subtitle', data)
   end
 
-  def bind(video_token_or_key, token_or_key)
-    return @application.connect.postJSON('/v1/videos/' + video_token_or_key + '/streams/' + token_or_key + '/bind')
-  end
-
 end
