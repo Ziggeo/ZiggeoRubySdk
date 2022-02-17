@@ -9,7 +9,7 @@ require_relative "classes/ZiggeoAuth"
 require_relative "classes/ZiggeoVideos"
 require_relative "classes/ZiggeoStreams"
 require_relative "classes/ZiggeoAudios"
-require_relative "classes/ZiggeoAudio_streams"
+require_relative "classes/ZiggeoAudioStreams"
 require_relative "classes/ZiggeoAuthtokens"
 require_relative "classes/ZiggeoApplication"
 require_relative "classes/ZiggeoEffectProfiles"
@@ -21,7 +21,7 @@ require_relative "classes/ZiggeoAnalytics"
 
 class Ziggeo
 
-    attr_accessor :token, :private_key, :encryption_key, :config, :connect, :api_connect, :cdn_connect
+    attr_accessor :token, :private_key, :encryption_key, :config, :connect, :api_connect, :cdn_connect, :js_cdn_connect
 
     def initialize(token = nil, private_key = nil, encryption_key = nil)
         @token = token
@@ -52,11 +52,19 @@ class Ziggeo
             end
         end
         @cdn_connect = ZiggeoConnect.new(self, cdn_url)
+				js_cdn_url = @config.js_cdn_url
+				js_cdn_regions = @config.js_cdn_regions
+				js_cdn_regions.each do |key, value|
+						if (@token.start_with?(key))
+								js_cdn_url = value
+						end
+				end
+				@js_cdn_connect = ZiggeoConnect.new(self, js_cdn_url)
         @auth = nil
         @videos = nil
         @streams = nil
         @audios = nil
-        @audio_streams = nil
+        @audioStreams = nil
         @authtokens = nil
         @application = nil
         @effectProfiles = nil
@@ -95,9 +103,9 @@ class Ziggeo
         return @audios
     end
 
-    def audio_streams()
-        @audio_streams = @audio_streams || ZiggeoAudio_streams.new(self)
-        return @audio_streams
+    def audioStreams()
+        @audioStreams = @audioStreams || ZiggeoAudioStreams.new(self)
+        return @audioStreams
     end
 
     def authtokens()
